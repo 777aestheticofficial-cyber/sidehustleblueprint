@@ -1,138 +1,591 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <title>AI Side Hustle Blueprint</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --bg: #020617;
+      --bg-elevated: #020617;
+      --card: #020617;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.12);
+      --accent-strong: #6366f1;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: rgba(148, 163, 184, 0.18);
+      --danger: #f97373;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      max-width: 800px;
-      margin: 24px auto;
-      padding: 0 12px 40px;
-      background: #f5f5f7;
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(94, 234, 212, 0.14), transparent 55%),
+        radial-gradient(circle at top right, rgba(129, 140, 248, 0.18), transparent 55%),
+        radial-gradient(circle at bottom, rgba(248, 250, 252, 0.02), transparent 65%),
+        var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px 40px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%), rgba(15,23,42,0.95);
+      border-radius: 28px;
+      padding: 28px 22px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow:
+        0 24px 70px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(26px);
+    }
+
+    @media (min-width: 900px) {
+      .shell {
+        padding: 32px 32px 34px;
+      }
+    }
+
+    .shell-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 899px) {
+      .shell-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 12px;
+    }
+
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .logo-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #e5e7eb, #4f46e5 55%, #0f172a 100%);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.7);
+    }
+
+    .logo-text-main {
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .logo-text-sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .tagline {
+      text-align: right;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .tagline span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    .spark {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.28);
     }
 
     h1 {
-      text-align: center;
-      margin-bottom: 8px;
+      font-size: clamp(1.7rem, 3vw, 2.15rem);
+      margin: 0;
     }
 
     p.subtitle {
-      text-align: center;
+      margin: 8px 0 20px;
       font-size: 0.95rem;
-      color: #555;
-      margin-top: 0;
-      margin-bottom: 24px;
+      color: var(--muted);
+      max-width: 510px;
     }
 
     form {
-      background: #fff;
-      padding: 16px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-      margin-bottom: 24px;
+      background: radial-gradient(circle at top, rgba(79, 70, 229, 0.12), transparent 60%), #020617;
+      padding: 18px 18px 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow:
+        0 14px 40px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15,23,42,0.8);
+    }
+
+    form h2 {
+      font-size: 0.95rem;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+
+    .field-group {
+      margin-bottom: 10px;
     }
 
     label {
       display: block;
-      margin-top: 10px;
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .hint {
+      font-size: 0.82rem;
+      color: #6b7280;
+      margin-bottom: 4px;
     }
 
     textarea,
     input {
       width: 100%;
-      padding: 8px 10px;
-      margin-top: 4px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 0.9rem;
-      box-sizing: border-box;
+      padding: 9px 10px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     }
 
-    button {
-      margin-top: 18px;
-      padding: 10px 18px;
-      font-size: 0.95rem;
-      font-weight: 600;
+    textarea:focus,
+    input:focus {
+      border-color: var(--accent-strong);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+      background: #020617;
+    }
+
+    textarea::placeholder,
+    input::placeholder {
+      color: #6b7280;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+      max-height: 150px;
+    }
+
+    .dual {
+      display: flex;
+      gap: 10px;
+    }
+
+    .dual > .field-group {
+      flex: 1;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 16px;
+      font-size: 0.9rem;
       border-radius: 999px;
       border: none;
+      outline: none;
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      color: #f9fafb;
+      font-weight: 600;
       cursor: pointer;
-      background: #111827;
-      color: #fff;
+      box-shadow:
+        0 12px 24px rgba(79, 70, 229, 0.5),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.08s ease;
     }
 
-    button:disabled {
-      opacity: 0.6;
+    .primary-btn span.icon {
+      font-size: 1.05rem;
+      transform: translateY(1px);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 16px 30px rgba(79, 70, 229, 0.6),
+        0 0 0 1px rgba(15, 23, 42, 1);
+    }
+
+    .primary-btn:active {
+      transform: translateY(0);
+      box-shadow:
+        0 12px 22px rgba(79, 70, 229, 0.5),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+    .primary-btn:disabled {
       cursor: default;
+      opacity: 0.55;
+      transform: none;
+      box-shadow:
+        0 10px 18px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
     }
 
     .status {
-      font-size: 0.9rem;
-      margin-top: 8px;
-      color: #555;
+      font-size: 0.82rem;
+      color: var(--muted);
     }
 
-    pre {
-      white-space: pre-wrap;
-      background: #111827;
-      color: #f9fafb;
-      padding: 16px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-      font-size: 0.88rem;
+    .status strong {
+      color: var(--accent-strong);
+    }
+
+    .right-panel {
+      background: radial-gradient(circle at top, rgba(8, 47, 73, 0.3), transparent 60%), #020617;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 18px 18px 18px;
+      box-shadow:
+        0 18px 45px rgba(15, 23, 42, 0.96),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .right-panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top left, rgba(129, 140, 248, 0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(45, 212, 191, 0.16), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .right-inner {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .result-label {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .result-label span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    #result {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      padding: 14px 14px 16px;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: #e5e7eb;
+      max-height: 430px;
+      overflow-y: auto;
+      box-shadow: 0 10px 35px rgba(15, 23, 42, 0.96);
+    }
+
+    #result h2, #result h3 {
+      margin: 1.1em 0 0.45em;
+      font-size: 0.96rem;
+      text-transform: none;
+      letter-spacing: 0;
+      color: #e5e7eb;
+    }
+
+    #result h2:first-child,
+    #result h3:first-child {
+      margin-top: 0;
+    }
+
+    #result strong {
+      color: #e5e7eb;
+    }
+
+    #result br + br {
+      line-height: 2;
+    }
+
+    .placeholder {
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(148, 163, 184, 0.4);
+      padding: 14px 14px 16px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .secondary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-btn {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text);
+      font-size: 0.86rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.9);
+      transition: border-color 0.12s ease, background 0.12s ease, transform 0.08s ease;
+    }
+
+    .pdf-btn span.icon {
+      font-size: 0.98rem;
+    }
+
+    .pdf-btn:hover {
+      border-color: var(--accent-strong);
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+    }
+
+    .pdf-btn:active {
+      transform: translateY(0);
+    }
+
+    .helper {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .helper strong {
+      color: var(--accent-strong);
+    }
+
+    @media (max-width: 899px) {
+      body {
+        padding: 24px 12px 32px;
+      }
+      .shell {
+        padding: 20px 16px 18px;
+        border-radius: 24px;
+      }
+      .right-panel {
+        order: 2;
+        margin-top: 8px;
+      }
+      form {
+        order: 1;
+      }
+      .shell-inner {
+        gap: 18px;
+      }
     }
   </style>
 </head>
-
 <body>
-  <h1>AI Side Hustle Blueprint</h1>
-  <p class="subtitle">Fill this out and your personalized blueprint will be generated with AI.</p>
+  <div class="shell">
+    <div class="header">
+      <div class="logo-badge">
+        <div class="logo-dot"></div>
+        <div>
+          <div class="logo-text-main">Side Hustle Blueprint</div>
+          <div class="logo-text-sub">AI-powered action plan</div>
+        </div>
+      </div>
+      <div class="tagline">
+        <span><span class="spark"></span> GPT-4.1 powered strategy</span>
+      </div>
+    </div>
 
-  <form id="blueprint-form">
-    <label>Skills*</label>
-    <textarea name="skills" rows="2" required placeholder="Editing, social media, coding, design..."></textarea>
+    <div class="shell-inner">
+      <!-- LEFT: FORM -->
+      <div>
+        <h1>Turn your skills into a profitable side hustle</h1>
+        <p class="subtitle">
+          Answer a few questions and get a tailored, step-by-step blueprint you can start this week.
+        </p>
 
-    <label>Interests</label>
-    <textarea name="interests" rows="2" placeholder="Gaming, fitness, fashion, crypto, etc."></textarea>
+        <form id="blueprint-form">
+          <h2>Tell the AI about you</h2>
 
-    <label>Experience level</label>
-    <input name="experience" placeholder="Beginner / Intermediate / Advanced" />
+          <div class="field-group">
+            <label>Skills *</label>
+            <div class="hint">What are you already good at or happy to learn more about?</div>
+            <textarea name="skills" rows="2" required placeholder="Editing, social media, design, coding, copywriting..."></textarea>
+          </div>
 
-    <label>Time per week (hours)</label>
-    <input name="time_per_week" placeholder="e.g. 5, 10, 20" />
+          <div class="field-group">
+            <label>Interests</label>
+            <div class="hint">Topics or niches you enjoy.</div>
+            <textarea name="interests" rows="2" placeholder="Gaming, fitness, fashion, beauty, crypto, finance, travel..."></textarea>
+          </div>
 
-    <label>Budget</label>
-    <input name="budget" placeholder="e.g. $0, $50, $200" />
+          <div class="dual">
+            <div class="field-group">
+              <label>Experience level</label>
+              <input name="experience" placeholder="Beginner / Intermediate / Advanced" />
+            </div>
+            <div class="field-group">
+              <label>Time per week</label>
+              <input name="time_per_week" placeholder="e.g. 3, 5, 10 hours" />
+            </div>
+          </div>
 
-    <label>Monthly income goal</label>
-    <input name="goal" placeholder="e.g. $500/month" />
+          <div class="dual">
+            <div class="field-group">
+              <label>Budget</label>
+              <input name="budget" placeholder="e.g. $0, $50, $200" />
+            </div>
+            <div class="field-group">
+              <label>Monthly income goal</label>
+              <input name="goal" placeholder="e.g. $500/month" />
+            </div>
+          </div>
 
-    <label>Preference</label>
-    <input name="preference" placeholder="Online / Offline / Both" />
+          <div class="field-group">
+            <label>Business style preference</label>
+            <div class="hint">How do you imagine working?</div>
+            <input name="preference" placeholder="Online, service-based, product-based, creator, etc." />
+          </div>
 
-    <button type="submit">Generate Blueprint</button>
-    <div class="status" id="status"></div>
-  </form>
+          <div class="actions">
+            <button type="submit" class="primary-btn">
+              <span class="icon">⚡</span>
+              <span>Generate my blueprint</span>
+            </button>
+            <div class="status" id="status">
+              Answer honestly — the more specific you are, the better your blueprint.
+            </div>
+          </div>
+        </form>
+      </div>
 
-  <pre id="result" style="display:none;"></pre>
+      <!-- RIGHT: RESULT -->
+      <div class="right-panel">
+        <div class="right-inner">
+          <div class="result-label">
+            <span class="dot"></span>
+            Your AI Blueprint
+          </div>
+
+          <div id="placeholder" class="placeholder">
+            Your custom blueprint will appear here.<br><br>
+            You’ll get:
+            <ul style="padding-left: 18px; margin: 8px 0 0;">
+              <li>a side hustle idea tailored to your skills & interests,</li>
+              <li>a simple launch plan for the first 7 days,</li>
+              <li>a weekly routine, pricing ideas & growth tips.</li>
+            </ul>
+          </div>
+
+          <div id="result" style="display:none;"></div>
+
+          <div class="secondary-row">
+            <button id="pdfBtn" class="pdf-btn" onclick="downloadPDF()" style="display:none;">
+              <span class="icon">📄</span>
+              Download as PDF
+            </button>
+            <div class="helper">
+              <strong>Pro tip:</strong> treat this as a playbook — not homework. Pick what fits your life.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jsPDF for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
-    // Your n8n webhook
     const WEBHOOK_URL = "https://automationking777.app.n8n.cloud/webhook/side-hustle-blueprint";
 
     const form = document.getElementById("blueprint-form");
     const statusEl = document.getElementById("status");
     const resultEl = document.getElementById("result");
+    const placeholderEl = document.getElementById("placeholder");
+    const pdfBtn = document.getElementById("pdfBtn");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      statusEl.textContent = "Generating your blueprint... this can take a few seconds.";
+      statusEl.innerHTML = "<strong>Working...</strong> generating your blueprint.";
       resultEl.style.display = "none";
-      resultEl.textContent = "";
+      resultEl.innerHTML = "";
+      pdfBtn.style.display = "none";
+
       const button = form.querySelector("button");
       button.disabled = true;
 
@@ -145,37 +598,94 @@
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json, text/plain;q=0.9"
+            "Accept": "application/json",
           },
           mode: "cors",
           body: JSON.stringify(body),
         });
 
         if (!res.ok) {
-          const text = await res.text();
-          throw new Error("Request failed: " + res.status + " " + text);
+          throw new Error("Request failed");
         }
 
         const data = await res.json();
+        let content;
 
-        let content =
-          data?.data?.[0]?.message?.content ||
-          data?.choices?.[0]?.message?.content ||
-          data?.message?.content ||
-          JSON.stringify(data, null, 2);
+        // n8n OpenAI node shape
+        if (Array.isArray(data.output) && data.output.length > 0) {
+          const msg = data.output[0];
+          if (Array.isArray(msg.content)) {
+            const textPart = msg.content.find(p => p.text);
+            if (textPart) content = textPart.text;
+          }
+        }
 
-        statusEl.textContent = "Blueprint generated ✔";
-        resultEl.textContent = content;
+        if (!content) {
+          content = JSON.stringify(data, null, 2);
+        }
+
+        // Convert escaped \n to actual newlines
+        let html = content.replace(/\\n/g, "\n");
+
+        // Markdown-lite formatting
+        html = html
+          .replace(/^### (.*)$/gm, "<h3>$1</h3>")
+          .replace(/^## (.*)$/gm, "<h2>$1</h2>")
+          .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+          .replace(/\n\n/g, "<br><br>")
+          .replace(/\n/g, "<br>");
+
+        placeholderEl.style.display = "none";
+        resultEl.innerHTML = html;
         resultEl.style.display = "block";
 
+        statusEl.innerHTML = "Blueprint generated <strong>✔</strong>";
+        pdfBtn.style.display = "inline-flex";
       } catch (err) {
         console.error(err);
-        statusEl.textContent = "Error generating blueprint. Try again or contact support.";
+        statusEl.innerHTML = "<span style='color:#f97373;'>Error generating blueprint. Please try again.</span>";
       } finally {
         button.disabled = false;
       }
     });
+
+    // PDF Download
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: "pt", format: "a4" });
+
+      const marginX = 48;
+      const marginY = 56;
+      const maxWidth = 520;
+      const lineHeight = 16;
+
+      const title = "AI Side Hustle Blueprint";
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(16);
+      doc.text(title, marginX, marginY);
+
+      const bodyYStart = marginY + 24;
+
+      const text = resultEl.innerText;
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(11);
+
+      const lines = doc.splitTextToSize(text, maxWidth);
+
+      let cursorY = bodyYStart;
+      const pageHeight = doc.internal.pageSize.getHeight();
+
+      lines.forEach(line => {
+        if (cursorY > pageHeight - 40) {
+          doc.addPage();
+          cursorY = marginY;
+        }
+        doc.text(line, marginX, cursorY);
+        cursorY += lineHeight;
+      });
+
+      doc.save("side-hustle-blueprint.pdf");
+    }
   </script>
 </body>
-
 </html>
